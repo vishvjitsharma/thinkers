@@ -8,6 +8,8 @@ import UserStore from "../stores/UserStore";
 const MainLayout = () => {
   const { loginState } = UserStore();
 
+  console.log("MainLayout loginState:", loginState);
+
   return (
     <div>
       {loginState ? <UserHeader /> : <GuestHeader />}

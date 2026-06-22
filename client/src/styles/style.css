@@ -289,7 +289,15 @@ div:where(.swal2-container) button:where(.swal2-styled).swal2-confirm {
   justify-content: center;
 }
 
-/* Components > Uploader */
+/* Modal Form */
+.modal form {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem; /* Add consistent spacing between form elements */
+  height: auto; /* Allow the form to adjust dynamically */
+}
+
+/* Uploader */
 .uploader {
   display: flex;
   flex-direction: column;
@@ -299,8 +307,51 @@ div:where(.swal2-container) button:where(.swal2-styled).swal2-confirm {
   cursor: pointer;
   border-radius: 5px;
   gap: 1rem;
-  z-index: 999 !important;
-  width: 300px;
+  width: 100%; /* Ensure it takes full width */
+  max-width: 400px; /* Limit the width */
+  margin: 0 auto; /* Center it horizontally */
+}
+
+.uploader .image-preview img {
+  max-width: 100%; /* Ensure the image fits within the uploader */
+  height: auto; /* Maintain aspect ratio */
+  border-radius: 5px;
+}
+
+/* Textarea for Description */
+textarea {
+  width: 100%;
+  padding: 1rem;
+  border: 1px solid var(--white);
+  border-radius: 4px;
+  background-color: transparent;
+  color: var(--white);
+  font-family: "Poppins", sans-serif;
+  font-size: 0.9rem;
+  resize: none; /* Prevent resizing */
+  transition: all 0.3s ease;
+  min-height: 150px; /* Ensure a minimum height */
+}
+
+/* Modal Actions */
+.modal-actions {
+  display: flex;
+  justify-content: space-between;
+  gap: 1rem; /* Add spacing between buttons */
+  margin-top: 1rem;
+}
+
+.modal-actions .btn {
+  flex: 1; /* Ensure buttons take equal width */
+  text-align: center;
+}
+
+
+/* Modal Actions */
+.modal-actions {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 1rem;
 }
 
 .uploader .default-preview {
@@ -844,4 +895,140 @@ div:where(.swal2-container) button:where(.swal2-styled).swal2-confirm {
 .search h1 {
   font-size: 2.5rem;
   font-weight: 800;
+}
+
+.swal-button {
+  width: 120px; /* Ensure both buttons have the same width */
+  text-align: center;
+}
+
+/* Blog Card Animations */
+.blog {
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+.blog-cover {
+  width: 100%;
+  height: 200px;
+  object-fit: cover;
+  border-radius: 8px;
+  margin-bottom: 1rem;
+}
+
+/* Blog Actions */
+.blog-actions {
+  display: flex;
+  gap: 1rem; /* Add spacing between buttons */
+}
+
+.blog-actions .edit-icon,
+.blog-actions .delete-icon {
+  cursor: pointer;
+  font-size: 1.2rem;
+  transition: color 0.3s ease;
+}
+
+.blog-actions .edit-icon:hover {
+  color: var(--primary);
+}
+
+.blog-actions .delete-icon:hover {
+  color: var(--error);
+}
+
+/* Author Avatar */
+.author-avatar {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  object-fit: cover;
+  margin-right: 0.5rem;
+}
+
+.blog:hover {
+  transform: scale(1.02);
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+}
+
+/* Button Hover Effects */
+.btn {
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.btn:hover {
+  background-color: var(--primary);
+  color: var(--background);
+}
+
+/* Modal Animations */
+.modal-overlay {
+  animation: fadeIn 0.3s ease;
+}
+
+.modal {
+  animation: slideIn 0.3s ease;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes slideIn {
+  from {
+    transform: translateY(-20px);
+  }
+  to {
+    transform: translateY(0);
+  }
+}
+
+/* Responsive Design */
+@media screen and (max-width: 768px) {
+  .blog {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .blog-content {
+    width: 100%;
+    text-align: center;
+  }
+
+  .btn {
+    width: 100%;
+    margin-bottom: 1rem;
+  }
+}
+
+.profile-header {
+  display: flex;
+  justify-content: flex-end;
+  width: 100%;
+}
+
+.close-icon {
+  font-size: 1.5rem;
+  color: var(--error);
+  cursor: pointer;
+  transition: color 0.3s ease;
+}
+
+.close-icon:hover {
+  color: var(--primary);
+}
+
+/* Styling for the comment button */
+.comment-icon {
+  cursor: pointer;
+  font-size: 1.2rem;
+ 
+  transition: color 0.3s ease;
+}
+
+.comment-icon:hover {
+  color: var(--primary);
 }

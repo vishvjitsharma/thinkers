@@ -74,10 +74,10 @@ const Register = () => {
       <div className="container">
         <div className="auth-box">
           <h1 className="heading">
-            Ready to <span className="highlight-text">Scrive?</span>
+            Ready to <span className="highlight-text">Share your Thoughts?</span>
           </h1>
           <p>
-            Already a Scriver?{" "}
+            Already a Thinker?{" "}
             <Link to="/login" className="link-text">
               Ahoy, Mate!
             </Link>
@@ -119,7 +119,7 @@ const Register = () => {
           </form>
         </div>
       </div>
-      <h1 className="logo">Scrive</h1>
+      <h1 className="logo">Thinkers</h1>
     </main>
   );
 };

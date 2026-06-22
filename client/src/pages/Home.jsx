@@ -1,42 +1,83 @@
-import { useEffect } from "react";
-
-import Blog from "../components/Blog";
-
-import { BlogState } from "../context/BlogContext";
-
-import NotFound from "../assets/images/not-found.svg";
-
+import { useState, useEffect } from "react";
+import Sidebar from "../components/Sidebar";
+import BlogSection from "../components/BlogSection";
+import CreateCommunityModal from "../components/CreateCommunityModal";
+import "../styles/community.css";
+import Swal from "sweetalert2";
+import "sweetalert2/dist/sweetalert2.min.css";
 const Home = () => {
-  const { blogs, setBlogs } = BlogState();
+  const [selectedCommunity, setSelectedCommunity] = useState(null);
+  const [isModalOpen, setIsModalOpen] = useState(false);
 
   useEffect(() => {
-    const fetchBlogs = async () => {
-      const response = await fetch(`${import.meta.env.VITE_API_URL}/api/blog`);
-
-      if (response.status === 200) {
-        const data = await response.json();
-        setBlogs(data.blogs);
-      } else {
-        setBlogs([]);
-      }
+    console.log("Home component mounted");
+    return () => {
+      console.log("Home component unmounted");
     };
+  }, []);
 
-    fetchBlogs();
-  }, [setBlogs]);
+  console.log("Selected Community:", selectedCommunity);
+
+  const handleSelectCommunity = (community) => {
+    if (community === "create") {
+      setIsModalOpen(true); // Open the "Create Community" modal
+    } else {
+      setSelectedCommunity(community); // Set the selected community
+    }
+  };
+
+  const handleCommunityDeleted = async (communityId) => {
+    Swal.fire({
+      title: "Delete Community",
+      text: "Are you sure you want to delete this community?",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonText: "Yes, delete it!",
+      cancelButtonText: "No, cancel",
+    }).then(async (result) => {
+      if (result.isConfirmed) {
+        const response = await fetch(`${import.meta.env.VITE_API_URL}/api/community/${communityId}`, {
+          method: "DELETE",
+          headers: {
+            "x-auth-token": localStorage.getItem("userDetails")
+              ? JSON.parse(localStorage.getItem("userDetails")).token
+              : "",
+          },
+        });
+  
+        if (response.status === 200) {
+          setSelectedCommunity(null);
+          Swal.fire("Deleted!", "The community has been deleted.", "success");
+        } else {
+          Swal.fire("Error!", "Failed to delete the community.", "error");
+        }
+      }
+    });
+  };
 
   return (
-    <div className="container">
-      {blogs.length > 0 ? (
-        <main className="home">
-          {blogs.map((blog) => (
-            <Blog key={blog._id} blog={blog} />
-          ))}
-        </main>
+    <div className="community-layout">
+      {/* Sidebar for listing communities */}
+      <Sidebar onSelectCommunity={handleSelectCommunity} />
+
+      {/* Main section for displaying blogs */}
+      {selectedCommunity ? (
+        <BlogSection
+          community={selectedCommunity}
+          onCommunityDeleted={handleCommunityDeleted}
+        />
       ) : (
-        <main className="default">
-          <img src={NotFound} alt="Not Found" />
-          <h1>No Blogs Found!</h1>
-        </main>
+        <div className="blog-section">
+          <h1>Select a Community to View Blogs</h1>
+        </div>
+      )}
+
+      {/* Modal for creating a community */}
+      {isModalOpen && (
+        <CreateCommunityModal
+          onClose={() => setIsModalOpen(false)}
+          setSelectedCommunity={setSelectedCommunity} // Pass the function as a prop
+        />
       )}
     </div>
   );

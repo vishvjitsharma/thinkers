@@ -1,0 +1,219 @@
+.community-layout {
+  display: flex;
+}
+
+.sidebar {
+  width: 400px;
+  background: #001514;
+  padding: 1rem;
+  color: #fbfffe;
+}
+
+.search-container {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin-bottom: 1rem;
+}
+
+.search-container input {
+  flex: 1; /* Make the search bar take up available space */
+  padding: 0.5rem;
+  border: 1px solid var(--white);
+  border-radius: 4px;
+  background-color: transparent;
+  color: var(--white);
+  font-family: "Poppins", sans-serif;
+  font-size: 1.2rem;
+  justify-content: space-between;
+}
+
+.add-community-btn {
+  background-color: var(--primary);
+  color: var(--background);
+  border: none;
+  padding: 1rem 1rem;
+  cursor: pointer;
+  border-radius: 5px;
+  font-size: 1.1rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  display: inline-block;
+  margin-left: 10px;
+  position: relative; /* Enable positioning */
+  top: -6px; /* Move slightly upward */
+}
+
+.sidebar input {
+  width: 100%;
+  padding: 0.5rem;
+  margin-bottom: 1rem;
+}
+
+.sidebar ul {
+  list-style: none;
+  padding: 0;
+}
+
+.sidebar li {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  padding: 0.5rem 0;
+  cursor: pointer;
+}
+
+.sidebar li img {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+}
+
+.blog-section {
+  flex: 1;
+  padding: 1rem;
+}
+
+/* Blog Posting Form */
+.blog-posting-form {
+  margin-top: 1rem;
+  padding: 1rem;
+  background: #001514;
+  border-radius: 5px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+}
+
+.blog-posting-form form {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.blog-posting-form input,
+.blog-posting-form textarea {
+  width: 100%;
+  padding: 0.5rem;
+  border: 1px solid var(--white);
+  border-radius: 4px;
+  background-color: transparent;
+  color: var(--white);
+  font-family: "Poppins", sans-serif;
+  font-size: 0.8rem;
+}
+
+.blog-posting-form .form-actions {
+  display: flex;
+  justify-content: space-between;
+  
+}
+
+
+/* Create Blog Button */
+.create-blog-btn {
+  width: 200px; /* Fixed width */
+  height: 50px; /* Fixed height */
+  display: block; /* Ensure it behaves as a block element */
+  text-align: center; /* Center the text inside the button */
+  margin: 0; /* Remove centering */
+}
+
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+}
+
+.modal {
+  background: #001514;
+  padding: 2rem;
+  border-radius: 10px;
+  width: 800px;
+  
+  
+  color: #fbfffe;
+}
+
+.modal h2 {
+  margin-bottom: 1rem;
+}
+
+.modal form {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  height: 400px;
+ 
+}
+
+.modal-actions {
+  display: flex;
+  justify-content: space-between;
+}
+.modal textarea {
+  width: 100%;
+  padding: 1rem;
+  border: 1px solid var(--white);
+  border-radius: 4px;
+  background-color: transparent;
+  color: var(--white);
+  font-family: "Poppins", sans-serif;
+  font-size: 0.8rem;
+  resize: none; /* Prevent resizing */
+  transition: all 0.3s ease;
+}
+/* Community Details */
+.community-details {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  margin-bottom: 2rem;
+}
+
+.community-details .community-pfp {
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+.community-details h1 {
+  font-size: 2rem;
+  font-weight: bold;
+}
+
+.community-actions {
+  margin-left: auto;
+  display: flex;
+  gap: 1rem;
+}
+
+/* Blogs Section */
+.blogs-container {
+  margin-top: 2rem;
+}
+
+.blogs-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1rem;
+}
+
+.blogs-list {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.swal-button {
+  width: 120px; /* Ensure both buttons have the same width */
+  text-align: center;
+}

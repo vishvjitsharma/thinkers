@@ -1,7 +1,7 @@
 {
   "name": "server",
   "version": "1.0.0",
-  "description": "NodeJS Server for Scrive (A blog web application)",
+  "description": "NodeJS Server for Thinkers (A blog web application)",
   "main": "app.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
@@ -17,6 +17,7 @@
     "jsonwebtoken": "^9.0.2",
     "mongoose": "^8.2.0",
     "multer": "^1.4.5-lts.1",
-    "nodemailer": "^6.9.13"
+    "nodemailer": "^6.9.13",
+    "nodemon": "^3.1.9"
   }
 }

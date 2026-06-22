@@ -10,7 +10,7 @@ const GuestHeader = () => {
     <div className="container">
       <nav className="nav guest-nav">
         <Link to="/app">
-          <h1 className="logo">Scrive</h1>
+          <h1 className="logo">Thinkers</h1>
         </Link>
         <ul className={`nav-links ${isOpen ? "active" : ""}`}>
           {/* <li>

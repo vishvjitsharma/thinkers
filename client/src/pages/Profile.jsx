@@ -5,6 +5,8 @@ import Swal from "sweetalert2";
 
 import UserStore from "../stores/UserStore";
 import { UserState } from "../context/UserContext";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faTimes } from "@fortawesome/free-solid-svg-icons";
 
 const Profile = () => {
   const { loginState, userDetails, logout } = UserStore();
@@ -27,6 +29,13 @@ const Profile = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+
+    if (!/^[a-zA-Z0-9_]{4,}$/.test(formData.username)) {
+      return toast.error("Username must be at least 4 characters and contain only letters, numbers, and underscores");
+    }
+    if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(formData.email)) {
+      return toast.error("Invalid email format");
+    }
 
     const response = await fetch(
       `${import.meta.env.VITE_API_URL}/api/auth/user`,
@@ -79,7 +88,9 @@ const Profile = () => {
         {formData &&
           (edit ? (
             <form onSubmit={handleSubmit}>
-              <h1>Edit Your Details</h1>
+              <div className="edit-header">
+                <h1>Edit Your Details</h1>
+              </div>
               <input
                 type="text"
                 id="username"
@@ -106,6 +117,13 @@ const Profile = () => {
             </form>
           ) : (
             <>
+              <div className="profile-header">
+                <FontAwesomeIcon
+                  icon={faTimes}
+                  className="close-icon"
+                  onClick={() => navigate("/app")}
+                />
+              </div>
               <img
                 src={
                   formData && typeof formData.profilePicture === "string"

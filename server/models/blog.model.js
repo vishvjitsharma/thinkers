@@ -22,9 +22,13 @@ const blogSchema = new Schema(
       type: String,
       required: [true, "Content is required"],
     },
-    author: {
-      type: Schema.Types.ObjectId,
-      ref: "User",
+    author: { 
+      type: mongoose.Schema.Types.ObjectId, 
+      ref: 'User' 
+    },
+    community: { 
+      type: mongoose.Schema.Types.ObjectId, 
+      ref: 'Community' 
     },
   },
   {

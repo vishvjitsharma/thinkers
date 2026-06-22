@@ -1,0 +1,26 @@
+.blog-large {
+  max-width: 1000px; /* Increased size for ideal web page */
+  margin: 0 auto; /* Center the blog */
+  padding: 30px; /* Add more padding for better spacing */
+}
+
+.search-container {
+  display: flex;
+  align-items: center; /* Ensure vertical alignment */
+  justify-content: space-between; /* Space between search and button */
+}
+
+.add-community-btn {
+  margin-left: 10px; /* Add spacing if needed */
+  display: inline-block; /* Ensure it stays inline */
+  position: relative; /* Enable positioning */
+  top: -2px; /* Move slightly upward */
+}
+
+.modal-form {
+  max-width: 600px; /* Increased size for ideal web page */
+  margin: 0 auto; /* Center the modal */
+  padding: 20px; /* Add padding for better spacing */
+  border-radius: 8px; /* Optional: Add rounded corners */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Optional: Add shadow for better visibility */
+}

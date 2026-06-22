@@ -17,8 +17,8 @@ const Welcome = () => {
     <main className="showcase">
       <div className="container">
         <h1 className="heading">
-          Where Blank Pages Become{" "}
-          <span className="highlight-text">Masterpieces.</span>
+        Unleashing the Power of Collective{" "}
+          <span className="highlight-text">Thoughts</span>
         </h1>
         <Link to="/app">
           <button className="btn">Get Inspired</button>

@@ -70,7 +70,7 @@ const Login = () => {
             Back!
           </h1>
           <p>
-            Not already a Scriver?{" "}
+            Not a Thinker?{" "}
             <Link to="/register" className="link-text">
               Become one
             </Link>
@@ -94,12 +94,12 @@ const Login = () => {
               <button type="submit" className="btn">
                 Login
               </button>
-              <Link to="/forgot-password">Forgot Password?</Link>
+              {/* <Link to="/forgot-password">Forgot Password?</Link> */}
             </div>
           </form>
         </div>
       </div>
-      <h1 className="logo">Scrive</h1>
+      <h1 className="logo">Thinkers</h1>
     </main>
   );
 };

@@ -5,11 +5,9 @@ const authMiddleware = require("../middlewares/auth.middleware");
 
 const blogRouter = express.Router();
 
-blogRouter.get("/", blogController.getAll);
-blogRouter.get("/author/:author", blogController.getAllByAuthor);
-blogRouter.get("/:id", blogController.getById);
-blogRouter.post("/create", authMiddleware, blogController.create);
-blogRouter.put("/:id", authMiddleware, blogController.update);
-blogRouter.delete("/:id", authMiddleware, blogController.delete);
+blogRouter.get("/community/:communityId", blogController.getAllByCommunity); // Fetch blogs by community
+blogRouter.post("/create", authMiddleware, blogController.create); // Create a blog
+blogRouter.put("/:id", authMiddleware, blogController.update); // Update a blog
+blogRouter.delete("/:id", authMiddleware, blogController.delete); // Delete a blog
 
 module.exports = blogRouter;

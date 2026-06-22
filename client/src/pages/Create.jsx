@@ -7,7 +7,7 @@ import Editor from "../components/Editor";
 
 import UserStore from "../stores/UserStore";
 
-const Create = () => {
+const Create = ({ isMember }) => {
   const { loginState, userDetails } = UserStore();
   const navigate = useNavigate();
 
@@ -16,7 +16,11 @@ const Create = () => {
       toast.error("Unauthorized Access! Login to continue.");
       navigate("/login");
     }
-  }, [loginState, navigate]);
+    if (!isMember) {
+      toast.error("You must join the community to create a blog.");
+      navigate("/app");
+    }
+  }, [loginState, isMember, navigate]);
 
   const [title, setTitle] = useState("");
   const [summary, setSummary] = useState("");

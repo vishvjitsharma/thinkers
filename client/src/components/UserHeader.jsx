@@ -13,10 +13,10 @@ const UserHeader = () => {
     <div className="container">
       <nav className="nav user-nav">
         <Link to="/app">
-          <h1 className="logo">Scrive</h1>
+          <h1 className="logo">Thinkers</h1>
         </Link>
         <ul className="nav-links">
-          <li>
+          {/* <li>
             <Link to="/search" state={blogs.length > 0 ? { blogs } : []}>
               <FontAwesomeIcon icon={faSearch} />
             </Link>
@@ -25,7 +25,7 @@ const UserHeader = () => {
             <Link to="/create" className="create-btn">
               <FontAwesomeIcon icon={faAdd} />
             </Link>
-          </li>
+          </li> */}
           <Link to="/profile" className="user-profile-picture">
             <img
               src={

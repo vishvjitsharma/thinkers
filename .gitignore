@@ -1,0 +1,1 @@
+Add-Content .gitignore "node_modules/`n.env`n.env.local`nclient/.env`nserver/.env`nclient/node_modules/`nserver/node_modules/`ndist/`nbuild/`n*.log`n.DS_Store"

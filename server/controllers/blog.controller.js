@@ -1,8 +1,6 @@
 const multer = require("multer");
 const path = require("path");
-const fs = require("fs");
-
-const blogServices = require("../services/blog.service");
+const Blog = require("../models/blog.model");
 
 const storage = multer.diskStorage({
   destination: (req, file, cb) => {
@@ -18,76 +16,60 @@ const storage = multer.diskStorage({
 const upload = multer({ storage: storage });
 
 const blogController = {
-  getAll: async (req, res) => {
+  getAllByCommunity: async (req, res) => {
     try {
-      const blogs = await blogServices.getAll();
+      const { communityId } = req.params;
+      console.log("Community ID:", communityId);
+      console.log("Community ID received in API:", communityId);
+      if (!communityId) {
+        return res.status(400).json({ message: "Community ID is required" });
+      }
 
-      return res.status(200).json({
-        blogs,
-      });
-    } catch (error) {
-      return res.status(400).json({
-        message: error.message,
-      });
-    }
-  },
-  getAllByAuthor: async (req, res) => {
-    try {
-      const { author } = req.params;
-      const blogs = await blogServices.getAllByAuthor(author);
+      const blogs = await Blog.find({ community: communityId })
+        .populate("author", "username profilePicture")
+        .sort({ createdAt: -1 });
 
-      return res.status(200).json({
-        blogs,
-      });
+        console.log("Blogs fetched from database:", blogs);
+      return res.status(200).json({ blogs });
     } catch (error) {
-      return res.status(400).json({
-        message: error.message,
-      });
-    }
-  },
-  getById: async (req, res) => {
-    try {
-      const { id } = req.params;
-      const blog = await blogServices.getById(id);
-
-      return res.status(200).json({
-        blog,
-      });
-    } catch (error) {
-      return res.status(400).json({
-        message: error.message,
-      });
+      console.error("Error fetching blogs:", error);
+      return res.status(500).json({ message: "Failed to fetch blogs", error });
     }
   },
   create: [
     upload.single("cover"),
     async (req, res) => {
       try {
-        const { title, summary, content } = req.body;
+        const { title, summary, content, communityId } = req.body;
         const cover = req.file.filename;
         const author = req.user._id;
 
-        const blog = await blogServices.create(
+        const blog = new Blog({
           title,
           summary,
           cover,
           content,
-          author
-        );
+          author,
+          community: communityId,
+        });
+
+        await blog.save();
+
+        const populatedBlog = await Blog.findById(blog._id)
+        .populate("author", "username profilePicture");
 
         return res.status(201).json({
           message: "Blog created successfully",
-          blog,
+          blog: populatedBlog,
         });
       } catch (error) {
-        return res.status(400).json({
-          message: error.message,
-        });
+        console.error("Error creating blog:", error);
+        return res.status(400).json({ message: error.message });
       }
     },
   ],
   update: [
-    upload.single("cover"),
+    upload.single("cover"), // Use the redefined upload middleware
     async (req, res) => {
       try {
         const { id } = req.params;
@@ -98,42 +80,51 @@ const blogController = {
           cover = req.file.filename;
         }
 
-        const blog = await blogServices.update(
-          id,
-          title,
-          summary,
-          cover,
-          content
-        );
+        const blog = await Blog.findById(id);
+
+        if (!blog) {
+          return res.status(404).json({ message: "Blog not found" });
+        }
+
+        if (blog.author.toString() !== req.user._id) {
+          return res.status(403).json({ message: "Unauthorized to update this blog" });
+        }
+
+        blog.title = title || blog.title;
+        blog.summary = summary || blog.summary;
+        blog.cover = cover || blog.cover;
+        blog.content = content || blog.content;
+
+        await blog.save();
 
         return res.status(200).json({
           message: "Blog updated successfully",
           blog,
         });
       } catch (error) {
-        return res.status(400).json({
-          message: error.message,
-        });
+        return res.status(400).json({ message: error.message });
       }
     },
   ],
   delete: async (req, res) => {
     try {
       const { id } = req.params;
-      const blog = await blogServices.getById(id);
 
-      const coverImagePath = path.join("public/uploads/covers", blog.cover);
-      fs.unlinkSync(coverImagePath);
+      const blog = await Blog.findById(id);
 
-      await blogServices.delete(id);
+      if (!blog) {
+        return res.status(404).json({ message: "Blog not found" });
+      }
 
-      return res.status(200).json({
-        message: "Blog deleted successfully",
-      });
+      if (blog.author.toString() !== req.user._id) {
+        return res.status(403).json({ message: "Unauthorized to delete this blog" });
+      }
+
+      await blog.deleteOne();
+
+      return res.status(200).json({ message: "Blog deleted successfully" });
     } catch (error) {
-      return res.status(400).json({
-        message: error.message,
-      });
+      return res.status(400).json({ message: error.message });
     }
   },
 };

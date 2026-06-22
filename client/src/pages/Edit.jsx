@@ -23,8 +23,6 @@ const Edit = () => {
       navigate("/login");
       return;
     }
-
-    console.log(location.state);
   }, [location.state, loginState, navigate]);
 
   const { id, title, summary, content, cover } = location.state || {};

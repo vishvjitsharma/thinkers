@@ -4,6 +4,7 @@ import { toast } from "react-toastify";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faEdit, faTrash } from "@fortawesome/free-solid-svg-icons";
 import Swal from "sweetalert2";
+import "sweetalert2/dist/sweetalert2.min.css";
 
 import UserStore from "../stores/UserStore";
 
@@ -36,40 +37,38 @@ const Blog = () => {
     fetchBlog();
   }, [id]);
 
-  const handleDelete = (e) => {
-    e.preventDefault();
+  const handleDelete = (blogId) => {
     Swal.fire({
       title: "Delete Blog",
       text: "Are you sure you want to delete this blog?",
       icon: "warning",
       showCancelButton: true,
-      confirmButtonText: "Yes",
-      cancelButtonText: "No",
-      customClass: {
-        popup: "swan-popup",
-        icon: "swan-icon",
-        confirmButton: "btn btn-primary",
-        cancelButton: "btn btn-outline btn-delete",
-      },
+      confirmButtonText: "Yes, delete it!",
+      cancelButtonText: "No, cancel",
     }).then((result) => {
       if (result.isConfirmed) {
-        fetch(`${import.meta.env.VITE_API_URL}/api/blog/${id}`, {
+        fetch(`${import.meta.env.VITE_API_URL}/api/blog/${blogId}`, {
           method: "DELETE",
           headers: {
-            "Content-Type": "application/json",
-            "x-auth-token": `${userDetails.token}`,
+            "x-auth-token": localStorage.getItem("userDetails")
+              ? JSON.parse(localStorage.getItem("userDetails")).token
+              : "",
           },
         })
           .then((response) => {
             if (response.status === 200) {
-              toast.success("Blog deleted successfully.");
+              Swal.fire("Deleted!", "Your blog has been deleted.", "success");
               navigate("/app");
             } else {
-              toast.error("An error occurred. Please try again later.");
+              Swal.fire("Error!", "Failed to delete the blog.", "error");
             }
           })
           .catch(() => {
-            toast.error("An error occurred. Please try again later.");
+            Swal.fire(
+              "Error!",
+              "An error occurred. Please try again.",
+              "error"
+            );
           });
       }
     });
